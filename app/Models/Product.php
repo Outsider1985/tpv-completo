@@ -23,8 +23,7 @@
 								INNER JOIN productos_categorias ON productos_categorias.id = productos.categoria_id
 								INNER JOIN precios ON precios.producto_id = productos.id
 								INNER JOIN iva ON iva.id = precios.iva_id
-								WHERE productos.activo = 1
-								AND precios.vigente = 1";
+								WHERE productos.activo = 1 AND precios.vigente = 1";
 					
 			$stmt = $this->pdo->prepare($query);
 			$result = $stmt->execute();
@@ -33,12 +32,37 @@
 
 		}
 
-		public function filter($category) {
+		public function filter($category, $visible) {
 
-			$query =  "SELECT productos.imagen_url, productos.nombre, precios.id AS precio_id FROM productos
-			INNER JOIN precios ON precios.producto_id = productos.id
-			WHERE categoria_id = $category and precios.vigente = 1";
-					
+			// $query =  "SELECT productos.imagen_url, productos.nombre, precios.id AS precio_id FROM productos
+			// INNER JOIN precios ON precios.producto_id = productos.id
+			// WHERE categoria_id = $category and precios.vigente = 1";
+
+				$query =  "SELECT	productos.id as id,
+								productos.nombre as nombre,
+								productos.imagen_url as imagen_url,
+								productos_categorias.nombre as categoria,
+								precios.precio_base as precio, iva.tipo_iva as iva, productos.visible as visible,
+								precios.id AS precio_id
+								FROM productos 
+								INNER JOIN productos_categorias ON productos_categorias.id = productos.categoria_id
+								INNER JOIN precios ON precios.producto_id = productos.id
+								INNER JOIN iva ON iva.id = precios.iva_id
+								WHERE productos.activo = 1 AND precios.vigente = 1";
+
+			if($category !== null){
+				$query .= " AND categoria_id = $category";
+			}
+
+			if($visible == 'true'){
+				$query .= " AND productos.visible = 1";
+			}
+			
+			if($visible == 'false'){
+				$query .= " AND productos.visible = 0";
+			}
+			
+
 			$stmt = $this->pdo->prepare($query);
 			$result = $stmt->execute();
 

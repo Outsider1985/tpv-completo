@@ -20,8 +20,8 @@
 			return $this->producto->index();
 		}	
 
-		public function filter($category) {
-			return $this->producto->filter($category);
+		public function filter($category, $visible) {
+			return $this->producto->filter($category, $visible);
 		}
 
 		public function show($id) {
