@@ -109,7 +109,6 @@ export let renderAdminTable = () => {
                 
                 let data = {};
                 data["route"] = exportTableToExcel.dataset.route;
-                alert(data["route"]);
 
                 let response = await fetch('web.php', {
                     headers: {

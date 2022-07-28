@@ -169,7 +169,7 @@
 					</form>
 					<div class="list-group">
 						<?php foreach ($ventas as $venta) : ?>
-							<?php if (isset($_GET['venta']) && $venta["ticket"] == $_GET["venta"]) : ?>
+							<?php if (isset($_GET['venta']) && $venta["id"] == $_GET["venta"]) : ?>
 								<a class="sale-item list-group-item list-group-item-action d-flex justify-content-between active" href="ventas.php?
 								venta=<?php echo $venta['id'] ?>&fecha=<?= $fecha ?>&mesa=<?= $mesa ?>" aria-current="true">
 									<div class="d-flex w-100 flex-column">

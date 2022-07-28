@@ -75,9 +75,8 @@
 
 			$excel_service = new ExcelService();
 	
-			$venta_seleccionada = $this->venta->show($venta_id);
-			$venta = $this->venta->venta_activa($venta_seleccionada['numero_ticket']);
-			$productos = $this->venta->articulos_venta($venta_seleccionada['numero_ticket']);
+			$venta = $this->venta->venta_activa($venta_id);
+			$productos = $this->venta->articulos_venta($venta_id);
 			
 			$excel_service->exportSaleToExcel($venta, $productos);
 		}
@@ -130,7 +129,7 @@
 			$pdf_service = new PdfService();
 			$pdf = $pdf_service->exportToPdf($html);
 	
-			file_put_contents($_SERVER["DOCUMENT_ROOT"] . '/pdf/tickets/ticket-'.$sale['numero_ticket'].'.pdf', $pdf);
+			file_put_contents($_SERVER["DOCUMENT_ROOT"] . '/pdf/tickets/ticket-'.$sale['ticket'].'.pdf', $pdf);
 		
 		}
 		
