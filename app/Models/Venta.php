@@ -115,6 +115,43 @@
 			return $stmt->fetchAll(PDO::FETCH_ASSOC);
 		}
 
+		public function filter($metodo, $table, $ticket) {
+			
+			$query =  "SELECT	ventas.id AS id,
+								ventas.numero_ticket AS numero_ticket,
+								ventas.precio_total_base AS precio_base,
+								ventas.precio_total_iva AS precio_total_iva,
+								ventas.precio_total AS precio_total,
+								metodos_pagos.nombre AS metodo_pago,
+								mesas.numero AS mesa,
+								ventas.fecha_emision AS fecha_emision,
+								ventas.hora_emision AS hora_emision,
+								ventas.duracion_servicio AS duracion_servicio
+								FROM ventas
+								INNER JOIN metodos_pagos ON metodos_pagos.id = ventas.metodo_pago_id
+								INNER JOIN mesas ON mesas.id = ventas.mesa_id
+								WHERE ventas.activo = 1";
+
+			if($metodo !== NULL){
+				$query .= " AND metodos_pagos.id = $metodo";
+			}
+
+			if($table !== NULL){
+				$query .= " AND mesas.id = $table";
+				}
+
+			if($ticket !== NULL){
+				$query .= " AND ventas.numero_ticket = $ticket";
+			}
+
+
+			$stmt = $this->pdo->prepare($query);
+			$result = $stmt->execute();
+
+			return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+		}
+
 		public function total_media($fecha, $mesa) {
 
 			$query =  "SELECT

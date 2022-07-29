@@ -22,7 +22,7 @@
     if ($category==null && $visible==null) {
         $productos = $producto->index();
     } else {
-        $productos = $producto->filter($category, $visible);
+        $productos = $producto->filtrar($category, $visible);
     }
     
     $categorias = $categoria->index();
@@ -244,7 +244,7 @@
     </div>
 
 
-    <!-- MODAL CATEGORIA PRODUCTO -->
+    <!-- MODAL FILTRO -->
     <div>
         <div id="filterArticle" class="modal fade" tabindex="-1" aria-labelledby="filterArticleLabel" aria-hidden="true">
             <div class="modal-dialog">

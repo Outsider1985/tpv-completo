@@ -34,6 +34,10 @@
 			return $this->venta->filtrar($fecha, $mesa);
 		}
 
+		public function filter($metodo, $table, $ticket) {
+			return $this->venta->filter($metodo, $table, $ticket);
+		}
+
 		public function articulos_venta($venta_id) {
 			return $this->venta->articulos_venta($venta_id);
 		}
